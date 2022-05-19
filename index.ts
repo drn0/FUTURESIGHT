@@ -2,24 +2,23 @@ import DiscordJS, { Intents } from 'discord.js'
 import WOKCommands from 'wokcommands'
 import path from 'path'
 import dotenv from 'dotenv'
-import testSchema from './models/dbSchema'
 import mongoose from 'mongoose'
 dotenv.config()
 
 const client = new DiscordJS.Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_BANS],
 })
 
 client.on('ready', async () => {
   const wok = new WOKCommands(client, {
     commandsDir: path.join(__dirname, 'commands'),
     typeScript: true,
-    testServers: ['888628928581886013', '797902467626827777'],
+    testServers: ['888628928581886013', '797902467626827777', '976667155418456126'],
     botOwners: ['545766773048213519'],
     mongoUri: process.env.MONGO_URI,
   })
 
-  .setDefaultPrefix('FS~')
+  .setDefaultPrefix('FS!')
 
 /* setTimeout(async () => {
     await new testSchema({

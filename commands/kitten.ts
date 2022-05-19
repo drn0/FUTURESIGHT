@@ -7,6 +7,7 @@ export default {
     description: 'Free cat',
     slash: 'both',
     testOnly: true,
+    cooldown: '60s',
 
     callback: ({ message }) => {
         const embed = new MessageEmbed()
