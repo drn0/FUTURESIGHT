@@ -7,7 +7,7 @@ export default {
     description: 'Adds a user or users to scammer DB',
     slash: false,
     testOnly: true,
-    permissions: ["ADMINISTRATOR"],
+    ownerOnly: true,
     minArgs: 2,
     expectedArgs: '<type> [uids]',
 
@@ -16,6 +16,7 @@ export default {
         let bans: any[] = []
         let addNum = 0;
         if (args[0] === 'mass') {
+        //    typeof args;
             console.log(args)
             addNum = (args.length - 1); // might have to add -1
         } else if (args[0] === 'single') {
@@ -27,20 +28,19 @@ export default {
         }
         let setS = 0
         let counted = 0;
-        for (let i = 0; i < (addNum); i++) {
+        for (let i = 0; i < (addNum - 1); i++) {
             let dbNum = await dbSchema.countDocuments();
             // if (!(userID in db))
             if (await dbSchema.find({'userID': (args[i + 1] + "\n")}).count() === 0) {                  
-                await new dbSchema({
-                        _id: (dbNum + 1),
-                        userID: (args[i + 1] + "\n")                
-            }
-                    ).save()
-                setS += 1
-                } else {
                     counted += 1
+                } else {
+                    await dbSchema.deleteOne({
+                        userID: (args[i + 1] + "\n"),           
+            }
+                    )
+                    setS += 1
                 }
         }
-        await message.reply(`Successfully added ${setS} users to the database with ${counted} already added.`)
+        await message.reply(`Successfully removed ${setS} users from the database with ${counted} that was not in.`)
     }
 } as ICommand

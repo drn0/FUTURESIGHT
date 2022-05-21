@@ -1,29 +1,25 @@
 import mongoose, { Schema } from 'mongoose'
-import { MessageEmbed } from 'discord.js'
 
 const reqString = {
     type: String,
     required: true
 }
 
-const reqArray = {
-    type: Array,
+const reqInt = {
+    type: Number,
     required: true
 }
 
-const reportSchema = new Schema({
+const profileSchema = new Schema({
     _id: reqString,
     userId: reqString,
     username: reqString,
-    alts: reqArray,
-    socials: reqArray,
-    summary: reqString,
-    evidence: reqString,
+    vouches: reqString,
     colour: reqString,
     image: reqString,
     type: reqString,
 })
 
-const name = 'reports'
+const name = 'staffinfo'
 export default mongoose.models[name] ||
-    mongoose.model(name, reportSchema, name)
+    mongoose.model(name, profileSchema, name)

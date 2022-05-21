@@ -13,7 +13,7 @@ client.on('ready', async () => {
   const wok = new WOKCommands(client, {
     commandsDir: path.join(__dirname, 'commands'),
     typeScript: true,
-    testServers: ['888628928581886013', '797902467626827777', '976667155418456126'],
+    testServers: ['888628928581886013', '797902467626827777', '976667155418456126', '942128778816143430', '947463447451410453'],
     botOwners: ['545766773048213519'],
     mongoUri: process.env.MONGO_URI,
   })
