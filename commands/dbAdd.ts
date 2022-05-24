@@ -33,7 +33,8 @@ export default {
             if (await dbSchema.find({'userID': (args[i + 1] + "\n")}).count() === 0) {                  
                 await new dbSchema({
                         _id: (dbNum + 1),
-                        userID: (args[i + 1] + "\n")                
+                        userID: (args[i + 1] + "\n"),
+                        reportedBy: message.author.id   
             }
                     ).save()
                 setS += 1

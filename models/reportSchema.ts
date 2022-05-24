@@ -13,17 +13,13 @@ const reqArray = {
 
 const reportSchema = new Schema({
     _id: reqString,
-    userId: reqString,
-    username: reqString,
-    alts: reqArray,
-    socials: reqArray,
-    summary: reqString,
-    evidence: reqString,
-    colour: reqString,
-    image: reqString,
-    type: reqString,
+    userIden: String,
+    accounts: Array,
+    summary: String,
+    evidence: String,
+    colour: String,
 })
 
 const name = 'reports'
 export default mongoose.models[name] ||
-    mongoose.model(name, reportSchema, name)
+    mongoose.model(name, reportSchema, 'reports')

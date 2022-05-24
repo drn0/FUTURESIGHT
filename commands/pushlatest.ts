@@ -26,12 +26,7 @@ export default {
             .catch(console.error)
 
         const num1 = parseInt(args[0])
-
-        const embed = new MessageEmbed()
-        .setColor("#e2c37a")
-        .setDescription(`Banned **${num1}** users.`)
-        .setImage(randomElement)
-
+        let dza = 0
         if (num1 <= 750 && num1 > 0) {
             const guildID = interaction.guild
             const channelID = interaction.channel
@@ -64,15 +59,20 @@ export default {
                         .then(
                            // async user => {await channelID?.send( { content: `Banned ${user}`} )}
                             )
-                        .catch(err => {console.log(`err at ${i}`)})
+                        .catch(err => {console.log(`err at ${i}`), dza += 1})
                 } else {
-                    interaction.reply({
+                    interaction.followUp({
                         content: 'x must be 1-750, inclusive'
                     }
                     )
                 }}
             //    await channelID?.send( { content: `Good riddance.`} )
                 // use $objectToArray
+                const embed = new MessageEmbed()
+                .setColor("#e2c37a")
+                .setDescription(`Attempted to ban **${num1}** users, with ${dza} exceptions.`)
+                .setImage(randomElement)
+
                 interaction.followUp({
                     embeds: [ embed ]
                 })

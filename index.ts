@@ -6,7 +6,7 @@ import mongoose from 'mongoose'
 dotenv.config()
 
 const client = new DiscordJS.Client({
-  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_BANS],
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_BANS, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
 })
 
 client.on('ready', async () => {
