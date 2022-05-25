@@ -20,7 +20,7 @@ export default {
                 await new reporterSchema({
                     _id: numTotla,
                     col: colour1,
-                    userId: message.author.id
+                    userId: uid
                 }).save()
                 message.reply(`Registered ${uid} in data with colour ${colour1}.`)
             } else {
@@ -28,7 +28,7 @@ export default {
             }
         } else if (numDoc === 1) {
             if (await reporterSchema.countDocuments({col: colour1}) === 0) {
-                reporterSchema.updateOne({userId: uid}, {upsert: true})
+                reporterSchema.updateOne({userId: uid}, {$set: {col: colour1}}, {upsert: true})
                 message.reply(`${uid} already had an entry on our database, but their colour has been updated to ${colour1} regardless.`)
             } else {
                 message.reply("It seems the chosen colour has already been registered. Please pick another!")

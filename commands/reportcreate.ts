@@ -22,11 +22,13 @@ export default {
             let colr = colo.col
             await new reportSchema({
                 _id: dbNum,
-                userIden: '',
-                accounts: [],
-                summary: '',
-                evidence: '',
+                userIden: 'None found.',
+                accounts: ['None, as of right now.'],
+                summary: 'None found.',
+                evidence: 'None found.',
                 colour: colr,
+                public: false,
+                notes: 'None, as of right now.'
             }).save()
             channelID.send(`Your report was made with the ID ${dbNum}.`)
            }

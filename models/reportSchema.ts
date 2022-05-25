@@ -18,6 +18,8 @@ const reportSchema = new Schema({
     summary: String,
     evidence: String,
     colour: String,
+    public: Boolean,
+    notes: String
 })
 
 const name = 'reports'
