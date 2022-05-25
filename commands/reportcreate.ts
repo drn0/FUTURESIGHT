@@ -9,7 +9,6 @@ export default {
     description: 'Creates a DB report',
     slash: false,
     testOnly: true,
-    permissions: ["ADMINISTRATOR"],
     minArgs: 0,
     expectedArgs: '',
 

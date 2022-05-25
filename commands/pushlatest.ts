@@ -52,17 +52,16 @@ export default {
                     oxen.push((result2[xyz].userID.replace('\n', "")))
                     xyz += 1
                 }
-                console.log(oxen)
                 for (let i = 0; i < (num1 - 2); i++ ) {
                 if (await dbSchema.find({'userID': oxen[i]}).count() === 0) {
                     await guildID?.members.ban(oxen[i])
                         .then(
                            // async user => {await channelID?.send( { content: `Banned ${user}`} )}
                             )
-                        .catch(err => {console.log(`err at ${i}`), dza += 1})
+                        .catch(err => {dza += 1})
                 } else {
                     interaction.followUp({
-                        content: 'x must be 1-750, inclusive'
+                        content: 'x must be 1-740, inclusive'
                     }
                     )
                 }}

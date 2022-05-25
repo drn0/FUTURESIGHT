@@ -1,8 +1,9 @@
-import { MessageCollector, DiscordAPIError, Message, MessageEmbed, ReactionCollector, Collector } from "discord.js";
+import { MessageEmbed, TextChannel } from "discord.js";
 import { ICommand } from "wokcommands";
 import reportSchema from "../models/reportSchema";
 import { modEmbed } from "../features/modEmbed";
 import reporterSchema from "../models/reporterSchema";
+import channelSchema from "../models/channelSchema";
 
 export default {
     category: 'Scammer DB',
@@ -17,13 +18,14 @@ export default {
         const reportNum = args[0]
         const senderuid = message.author.id
         const sendsuid = senderuid
-        let dbNum = await reportSchema.countDocuments()
+        const repVerify = await reporterSchema.countDocuments({userId: senderuid}) > 0
         if (await reportSchema.countDocuments({_id: reportNum}) > 0)
         { let result = await reportSchema.findOne(
             {
             _id : reportNum
             }
         )
+        const publicBool = result.public
         const useruid = result.userIden
         let userName: any
         if (useruid != undefined) {
@@ -49,10 +51,16 @@ export default {
             { name: "╭╴notes‧੭", value: `${result.notes}`}
         )
         .setImage("https://cdn.discordapp.com/attachments/972947718546817126/972949805083017226/lev_invis_divider.png")
+    if (publicBool) {
         channelID.send({        
             embeds: [reportEmbed]
         });
-        if (args[1] === 'edit' && await reporterSchema.countDocuments({userId: senderuid}) > 0) {
+    } else {
+        channelID.send({
+            content: `Sorry, it seems report ${reportNum} is not public.`
+        })
+    }
+        if (args[1] === 'edit' && repVerify) {
             channelID.send({
                 embeds: [modEmbed]
             })
@@ -62,13 +70,13 @@ export default {
             return ['🪡', '🧶', '🕶', '🧥'].includes(reaction.emoji.name) && user.id === sendsuid;
     };
 
-        await message.awaitReactions({filter, max: 1, time: 500_000})
+        await message.awaitReactions({filter, max: 4, time: 500_000})
             .then(async collected => {
             const reaction = collected.first();
             if (reaction?.emoji.name === '🪡') {
                 const filtered = ((message: any) => { 
                     return message.author.id === sendsuid })
-                await channelID.send(`Please enter the accounts owned by this user in this format: platform: username , and give each their own message <@!${sendsuid}>. Note that you can only add up to five accounts; link any more in the evidence or notes section.`)
+                await channelID.send(`Please enter the accounts owned by this user in this format: platform: username , and give each their own message <@!${sendsuid}>. Note that you can only add up to five accounts; link any more in the evidence or notes section. If you don't have 5 accounts, wait 60 seconds after entering the final account.`)
                     .then(async () => {
                         let carcinoGeneticist: any[] = []
                         const mesCol = channelID.createMessageCollector({ filter: filtered, max: 5, time: 60_000});
@@ -137,8 +145,23 @@ export default {
             .catch(collected => {
                 message.reply("hey, that's not a reaction i gave you");
             })            
-        } else if (args[1] === 'edit'){
-            channelID.send("Sorry, you're not permitted to run the edit command.")
+        } else if (args[1] === 'publish' && repVerify) {
+            let callnewdb: number = await channelSchema.countDocuments()
+            let newChanid: string
+            let iterChan = await channelSchema.find(
+                {
+                _id : { $gt : (0), $lt : (callnewdb - 1)}
+                }
+            ) as any[]
+            for (let o = 0; o < iterChan.length; o++) {
+                await (client.channels.cache.get(iterChan[o]) as TextChannel).send({
+                    embeds: [reportEmbed]
+                })
+            }
+            await channelID.send('publish is broken rn bc eli is lazy')
+            await channelID.send(`Published report ${reportNum} to all subscribed report channels.`) 
+        } else if (args[1] === 'publish' || args[1] == 'verify') {
+            channelID.send("Sorry, you're not permitted to run that command.")
         }
     } else {
             channelID.send(`Sorry, ${reportNum} is not a valid report ID.`)

@@ -39,7 +39,7 @@ export default {
                             _id: `${dbNum2 + 1}`,
                             userID: args[i],
                             reportedBy: userUID
-                        })
+                        }).save()
                         await new reportSchema({
                             _id: dbNum,
                             userIden: args[i],
@@ -48,7 +48,7 @@ export default {
                             evidence: evid,
                             colour: col,
                             public: pub,
-                            notes: notes
+                            notes: `${notes}\nThis report was created from the parent report ${rNum}.`
                         }).save()
                         await channelID.send(`Successfully created report ${dbNum}.`)
                     }

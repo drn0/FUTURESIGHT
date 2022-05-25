@@ -1,22 +1,22 @@
 import { MessageEmbed } from "discord.js";
 import { ICommand } from "wokcommands";
 import dbSchema from "../models/dbSchema";
+import reporterSchema from "../models/reporterSchema";
 
 export default {
     category: 'Scammer DB',
     description: 'Adds a user or users to scammer DB',
     slash: false,
     testOnly: true,
-    permissions: ["ADMINISTRATOR"],
     minArgs: 2,
     expectedArgs: '<type> [uids]',
 
     callback: async ({ message, args }) => {
-        const type = (args[0]);
+        if (await reporterSchema.countDocuments({userId: message.author.id}) >= 1)
+        {        const type = (args[0]);
         let bans: any[] = []
         let addNum = 0;
         if (args[0] === 'mass') {
-            console.log(args)
             addNum = (args.length - 1); // might have to add -1
         } else if (args[0] === 'single') {
             let bans = Array.from(args[1]);
@@ -42,6 +42,6 @@ export default {
                     counted += 1
                 }
         }
-        await message.reply(`Successfully added ${setS} users to the database with ${counted} already added.`)
+        await message.reply(`Successfully added ${setS} users to the database with ${counted} already added.`)}
     }
 } as ICommand
