@@ -42,7 +42,7 @@ module.exports = {
     category: 'Scammer DB',
     description: 'Search Users',
     slash: false,
-    testOnly: true,
+    testOnly: false,
     minArgs: 2,
     expectedArgs: '<type> <uid>',
     callback: function (_a) {

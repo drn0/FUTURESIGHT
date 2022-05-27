@@ -45,7 +45,7 @@ module.exports = {
     category: 'Scammer DB',
     description: 'Creates a DB report',
     slash: false,
-    testOnly: true,
+    testOnly: false,
     minArgs: 1,
     expectedArgs: '<report> [term]',
     callback: function (_a) {
@@ -132,12 +132,12 @@ module.exports = {
                                             filtered_1 = (function (message) {
                                                 return message.author.id === sendsuid;
                                             });
-                                            return [4 /*yield*/, channelID.send("Please enter the accounts owned by this user in this format: platform: username , and give each their own message <@!".concat(sendsuid, ">. Note that you can only add up to five accounts; link any more in the evidence or notes section. If you don't have 5 accounts, wait 60 seconds after entering the final account."))
+                                            return [4 /*yield*/, channelID.send("Please enter the accounts owned by this user in this format: platform: username , and give each their own message <@!".concat(sendsuid, ">. Note that you can only add up to ten accounts; link any more in the evidence or notes section. If you are inactive for 20 seconds, the bot will end the interaction."))
                                                     .then(function () { return __awaiter(void 0, void 0, void 0, function () {
                                                     var carcinoGeneticist, mesCol;
                                                     return __generator(this, function (_a) {
                                                         carcinoGeneticist = [];
-                                                        mesCol = channelID.createMessageCollector({ filter: filtered_1, max: 5, time: 60000 });
+                                                        mesCol = channelID.createMessageCollector({ filter: filtered_1, max: 10, idle: 20000 });
                                                         mesCol.on('collect', function (m) {
                                                             carcinoGeneticist.push(m.content);
                                                         });

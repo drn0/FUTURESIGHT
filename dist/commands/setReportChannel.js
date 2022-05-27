@@ -41,7 +41,7 @@ module.exports = {
     category: 'Config',
     description: 'Set report channel',
     slash: false,
-    testOnly: true,
+    testOnly: false,
     minArgs: 1,
     expectedArgs: "<channelid>",
     permissions: ['ADMINISTRATOR'],

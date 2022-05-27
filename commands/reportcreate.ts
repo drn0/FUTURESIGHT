@@ -26,7 +26,7 @@ export default {
                 summary: 'None found.',
                 evidence: 'None found.',
                 colour: colr,
-                public: false,
+                public: true,
                 notes: 'None, as of right now.'
             }).save()
             channelID.send(`Your report was made with the ID ${dbNum}.`)

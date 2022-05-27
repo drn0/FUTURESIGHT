@@ -71,7 +71,7 @@ module.exports = {
                                 summary: 'None found.',
                                 evidence: 'None found.',
                                 colour: colr,
-                                public: false,
+                                public: true,
                                 notes: 'None, as of right now.'
                             }).save()];
                     case 4:

@@ -45,7 +45,7 @@ module.exports = {
     description: 'Pushes the latest x bans.',
     permissions: ['BAN_MEMBERS'],
     slash: true,
-    testOnly: true,
+    testOnly: false,
     guildOnly: true,
     minArgs: 1,
     expectedArgs: '<num1>',

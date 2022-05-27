@@ -5,7 +5,7 @@ module.exports = {
     category: 'Cat',
     description: 'Free cat',
     slash: 'both',
-    testOnly: true,
+    testOnly: false,
     cooldown: '30s',
     callback: function (_a) {
         var message = _a.message;
