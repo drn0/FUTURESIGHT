@@ -21,7 +21,7 @@ export default {
             let colr = colo.col
             await new reportSchema({
                 _id: dbNum,
-                userIden: 'None found.',
+                userIden: [],
                 accounts: ['None, as of right now.'],
                 summary: 'None found.',
                 evidence: 'None found.',

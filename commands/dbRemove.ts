@@ -34,10 +34,11 @@ export default {
             if (await dbSchema.find({'userID': (args[i + 1] + "\n")}).count() === 0) {                  
                     counted += 1
                 } else {
-                    await dbSchema.deleteOne({
+                    await dbSchema.updateOne({
                         userID: (args[i + 1] + "\n"),           
-            }
+            }, {$set: {userID: '954559620561666058'}}
                     )
+                    .catch(Error)
                     setS += 1
                 }
         }

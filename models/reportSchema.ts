@@ -13,7 +13,7 @@ const reqArray = {
 
 const reportSchema = new Schema({
     _id: reqString,
-    userIden: String,
+    userIden: Array,
     accounts: Array,
     summary: String,
     evidence: String,

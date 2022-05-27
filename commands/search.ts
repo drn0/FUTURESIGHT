@@ -18,7 +18,7 @@ export default {
         const uid = args[1]
         if (type === 'user') {
         if (await reportSchema.find({userIden: (uid)}).count() > 0) {  
-            const zzz = await reportSchema.find({userIden: (uid)})
+            const zzz = await reportSchema.find({userIden: uid}) as any[]
             let reportArray: any[] = []
             let idArray: any[] = []
             for (let i = 0; i < zzz.length; i++) {

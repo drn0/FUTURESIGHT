@@ -28,32 +28,17 @@ export default {
                 const pub = result.public
                 const notes = result.notes
                 let dbNum2: number
+                let argsArchive: any[] = []
                 for (let i = 1; i < args.length; i++) {
-                    if (i === 1) {
-                    await reportSchema.updateOne({_id: rNum}, {$set: {userIden: args[i]}}, {upsert: true})
-                    await channelID.send(`Successfully updated report ${rNum}.`)
-                    } else {
-                        dbNum = await reportSchema.countDocuments()
-                        dbNum2 = await dbSchema.countDocuments()
+                    await reportSchema.updateOne({_id: rNum}, {$push: {userIden: args[i]}}, {upsert: true})
+                    dbNum2 = await dbSchema.countDocuments()
                         await new dbSchema({
-                            _id: `${dbNum2 + 1}`,
-                            userID: args[i],
+                            _id: `${dbNum2 + 2}`,
+                            userID: args[i] + '\n',
                             reportedBy: userUID
                         }).save()
-                        await new reportSchema({
-                            _id: dbNum,
-                            userIden: args[i],
-                            accounts: accs,
-                            summary: sum,
-                            evidence: evid,
-                            colour: col,
-                            public: pub,
-                            notes: `${notes}\nThis report was created from the parent report ${rNum}.`
-                        }).save()
-                        await channelID.send(`Successfully created report ${dbNum}.`)
-                    }
                 }
-                
+                channelID.send(`Update report ${rNum}`)
             } else {
                 return `Sorry, report ${rNum} doesn't seem to exist.`
             }

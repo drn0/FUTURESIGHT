@@ -43,18 +43,23 @@ export default {
         .setColor(colour)
         .setTitle(`₊˚⌜report ${result._id}⌟‧₊`)
         .setAuthor(`${userName}`)
-        .setDescription(`\`${useruid} ${userName}\``)
+        .setDescription(`\`${useruid}${userName}\``)
         .addFields(
-            { name: "╭╴accounts‧੭", value: `${helpmeacc.replace(/\,/g,'')}\u200b`},
+            { name: "╭╴other/related accounts‧੭", value: `${helpmeacc.replace(/\,/g,'')}\u200b`},
             { name: "╭╴summary‧੭", value: `${result.summary}\u200b`},
             { name: "╭╴evidence‧੭", value: `${result.evidence}\u200b`},
             { name: "╭╴notes‧੭", value: `${result.notes}`}
         )
         .setImage("https://cdn.discordapp.com/attachments/972947718546817126/972949805083017226/lev_invis_divider.png")
     if (publicBool) {
-        channelID.send({        
+        let xyzz = await channelID.send({        
             embeds: [reportEmbed]
         });
+        if (channelID.type === 'GUILD_NEWS') {
+            xyzz.crosspost()
+        } else {
+            xyzz
+        }
     } else {
         channelID.send({
             content: `Sorry, it seems report ${reportNum} is not public.`
@@ -70,7 +75,7 @@ export default {
             return ['🪡', '🧶', '🕶', '🧥'].includes(reaction.emoji.name) && user.id === sendsuid;
     };
 
-        await message.awaitReactions({filter, max: 4, time: 500_000})
+        await message.awaitReactions({filter, max: 1, time: 500_000})
             .then(async collected => {
             const reaction = collected.first();
             if (reaction?.emoji.name === '🪡') {
@@ -147,20 +152,19 @@ export default {
             })            
         } else if (args[1] === 'publish' && repVerify) {
             let callnewdb: number = await channelSchema.countDocuments()
-            let newChanid: string
+    /*        let newChanid: string
             let iterChan = await channelSchema.find(
                 {
                 _id : { $gt : (0), $lt : (callnewdb - 1)}
                 }
-            ) as any[]
-            for (let o = 0; o < iterChan.length; o++) {
-                await (client.channels.cache.get(iterChan[o]) as TextChannel).send({
-                    embeds: [reportEmbed]
-                })
-            }
-            await channelID.send('publish is broken rn bc eli is lazy')
-            await channelID.send(`Published report ${reportNum} to all subscribed report channels.`) 
-        } else if (args[1] === 'publish' || args[1] == 'verify') {
+            ) as any[] */
+            let xoxo = await (client.channels.cache.get('869255669906309221') as TextChannel).send({
+                embeds: [reportEmbed]
+            })
+            await xoxo.crosspost()
+                .catch(console.error)
+            await channelID.send(`Published report ${reportNum} to the [TSB] Nexus report channel!`) 
+        } else if (args[1] === 'publish' || args[1] == 'edit') {
             channelID.send("Sorry, you're not permitted to run that command.")
         }
     } else {
