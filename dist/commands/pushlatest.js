@@ -100,9 +100,6 @@ module.exports = {
                         _b.sent();
                         return [3 /*break*/, 9];
                     case 8:
-                        interaction.followUp({
-                            content: 'x must be 1-740, inclusive'
-                        });
                         _b.label = 9;
                     case 9:
                         i++;

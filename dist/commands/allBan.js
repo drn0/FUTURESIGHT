@@ -52,17 +52,18 @@ module.exports = {
     callback: function (_a) {
         var interaction = _a.interaction, args = _a.args;
         return __awaiter(void 0, void 0, void 0, function () {
-            var num1, num2, embed, guildID, channelID, banList, primoBanList, oxe, oxide, oxen, setton, result2, xyz, oxygate, errlog, oxygated, _loop_1, i;
+            var num1, num2, num3, embed, guildID, channelID, banList, primoBanList, oxe, oxide, oxen, setton, result2, xyz, oxygate, errlog, oxygated, _loop_1, i;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
                         interaction.deferReply()
                             .then()["catch"](console.error);
                         num1 = parseInt(args[0]);
-                        num2 = parseInt(args[1])
+                        num2 = parseInt(args[1]);
+                        num3 = num2 - num1
                         embed = new discord_js_1.MessageEmbed()
                             .setColor("#e2c37a")
-                            .setDescription("Banned **".concat(num1, "** users."))
+                            .setDescription("Attempted to ban **".concat(num3, "** users."))
                             .setImage(randomElement);
                         if (!(num1 > 0)) return [3 /*break*/, 9];
                         guildID = interaction.guild;
@@ -80,7 +81,7 @@ module.exports = {
                         oxen = [];
                         setton = oxe.toString();
                         return [4 /*yield*/, dbSchema_1["default"].find({
-                                _id: { $gt: (num1), $lt: (num2 - 1) }
+                                _id: { $gt: (num1), $lt: (oxide - 1) }
                             })];
                     case 4:
                         result2 = _b.sent();
