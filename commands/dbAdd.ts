@@ -30,13 +30,14 @@ export default {
         for (let i = 0; i < (addNum); i++) {
             let dbNum = await dbSchema.countDocuments();
             // if (!(userID in db))
-            if (await dbSchema.find({'userID': (args[i + 1] + "\n")}).count() === 0) {                  
+            if (await dbSchema.find({'userID': args[i + 1]}).count() === 0) {                  
                 await new dbSchema({
                         _id: (dbNum + 1),
-                        userID: (args[i + 1] + "\n"),
+                        userID: (args[i + 1]),
                         reportedBy: message.author.id   
-            }
-                    ).save()
+            }).save()
+                .then(() => {})
+                .catch(Error)
                 setS += 1
                 } else {
                     counted += 1

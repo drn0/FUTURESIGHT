@@ -61,7 +61,7 @@ export default {
                 if (typeof result2[xyz] != undefined && result2[xyz].userID != undefined) {
                     oxygate = result2[xyz].userID
                     if (typeof oxygate != undefined) {
-                        oxygated = oxygate.replace('\n', "")
+                        oxygated = oxygate
                         if (typeof oxygated != undefined) {
                             oxen.push((oxygate))
                             xyz += 1
@@ -71,8 +71,6 @@ export default {
                         }
                     }
                 }
-                console.log(errlog)
-                console.log(oxen)
                 for (let i = 0; i < (num1 - 2); i++ ) {
                 if (await dbSchema.find({'userID': oxen[i]}).count() === 0) {
                     await guildID?.members.ban(oxen[i])
@@ -80,11 +78,6 @@ export default {
                            // async user => {await channelID?.send( { content: `Banned ${user}`} )}
                             )
                         .catch(err => {console.log(`err at ${i}`)})
-                } else {
-                    interaction.followUp({
-                        content: 'x must be 1-750, inclusive'
-                    }
-                    )
                 }}
             //    await channelID?.send( { content: `Good riddance.`} )
                 // use $objectToArray

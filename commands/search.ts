@@ -30,7 +30,7 @@ export default {
             await channelID.send({
                 content: `User ID ${uid} was found in reports ${idArray}`
             })
-        } else if (await dbSchema.find({'userID': (uid + "\n")}).count() >= 1) {
+        } else if (await dbSchema.find({'userID': (uid)}).count() >= 1) {
             return `User ${uid} was found in the scammer database, but has no report in the FUTURE|SIGHT bot. Try searching for traditional reports in a server!`
         } else {
             return `Nothing pertaining to ${uid} was found; double check to be safe!`

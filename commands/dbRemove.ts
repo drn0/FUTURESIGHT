@@ -31,11 +31,11 @@ export default {
         for (let i = 0; i < (addNum - 1); i++) {
             let dbNum = await dbSchema.countDocuments();
             // if (!(userID in db))
-            if (await dbSchema.find({'userID': (args[i + 1] + "\n")}).count() === 0) {                  
+            if (await dbSchema.find({'userID': (args[i + 1])}).count() === 0) {                  
                     counted += 1
                 } else {
                     await dbSchema.updateOne({
-                        userID: (args[i + 1] + "\n"),           
+                        userID: args[i + 1],           
             }, {$set: {userID: '954559620561666058'}}
                     )
                     .catch(Error)

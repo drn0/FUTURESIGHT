@@ -34,7 +34,7 @@ export default {
                     dbNum2 = await dbSchema.countDocuments()
                         await new dbSchema({
                             _id: `${dbNum2 + 2}`,
-                            userID: args[i] + '\n',
+                            userID: args[i],
                             reportedBy: userUID
                         }).save()
                 }

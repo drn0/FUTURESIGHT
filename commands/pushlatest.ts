@@ -49,7 +49,7 @@ export default {
                 let xyz = 0;
                 while (xyz < (num1 - 1)) {
                 //    console.log((result2[xyz].userID))
-                    oxen.push((result2[xyz].userID.replace('\n', "")))
+                    oxen.push((result2[xyz].userID))
                     xyz += 1
                 }
                 for (let i = 0; i < (num1 - 2); i++ ) {
