@@ -161,9 +161,12 @@ export default {
             let xoxo = await (client.channels.cache.get('869255669906309221') as TextChannel).send({
                 embeds: [reportEmbed]
             })
+            let oxox = await (client.channels.cache.get('979898973466812477') as TextChannel).send({
+                embeds: [reportEmbed]
+            })
             await xoxo.crosspost()
                 .catch(console.error)
-            await channelID.send(`Published report ${reportNum} to the [TSB] Nexus report channel!`) 
+            await channelID.send(`Published report ${reportNum} to the [TSB] Nexus report channel and Illusion Hall future-sight-reports channel!`) 
         } else if (args[1] === 'publish' || args[1] == 'edit') {
             channelID.send("Sorry, you're not permitted to run that command.")
         }

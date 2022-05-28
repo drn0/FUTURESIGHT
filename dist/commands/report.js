@@ -45,13 +45,13 @@ module.exports = {
     category: 'Scammer DB',
     description: 'Creates a DB report',
     slash: false,
-    testOnly: false,
+    testOnly: true,
     minArgs: 1,
     expectedArgs: '<report> [term]',
     callback: function (_a) {
         var message = _a.message, args = _a.args, client = _a.client;
         return __awaiter(void 0, void 0, void 0, function () {
-            var channelID, reportNum, senderuid, sendsuid, repVerify, result, publicBool, useruid, userName_1, xyi_1, colour, helpmeacc, reportEmbed, xyzz, filter, callnewdb, xoxo;
+            var channelID, reportNum, senderuid, sendsuid, repVerify, result, publicBool, useruid, userName_1, xyi_1, colour, helpmeacc, reportEmbed, xyzz, filter, callnewdb, xoxo, oxox;
             return __generator(this, function (_b) {
                 switch (_b.label) {
                     case 0:
@@ -64,7 +64,7 @@ module.exports = {
                         repVerify = (_b.sent()) > 0;
                         return [4 /*yield*/, reportSchema_1["default"].countDocuments({ _id: reportNum })];
                     case 2:
-                        if (!((_b.sent()) > 0)) return [3 /*break*/, 18];
+                        if (!((_b.sent()) > 0)) return [3 /*break*/, 19];
                         return [4 /*yield*/, reportSchema_1["default"].findOne({
                                 _id: reportNum
                             })];
@@ -132,12 +132,12 @@ module.exports = {
                                             filtered_1 = (function (message) {
                                                 return message.author.id === sendsuid;
                                             });
-                                            return [4 /*yield*/, channelID.send("Please enter the accounts owned by this user in this format: platform: username , and give each their own message <@!".concat(sendsuid, ">. Note that you can only add up to ten accounts; link any more in the evidence or notes section. If you are inactive for 20 seconds, the bot will end the interaction."))
+                                            return [4 /*yield*/, channelID.send("Please enter the accounts owned by this user in this format: platform: username , and give each their own message <@!".concat(sendsuid, ">. Note that you can only add up to five accounts; link any more in the evidence or notes section. If you don't have 5 accounts, wait 60 seconds after entering the final account."))
                                                     .then(function () { return __awaiter(void 0, void 0, void 0, function () {
                                                     var carcinoGeneticist, mesCol;
                                                     return __generator(this, function (_a) {
                                                         carcinoGeneticist = [];
-                                                        mesCol = channelID.createMessageCollector({ filter: filtered_1, max: 10, idle: 20000 });
+                                                        mesCol = channelID.createMessageCollector({ filter: filtered_1, max: 5, time: 60000 });
                                                         mesCol.on('collect', function (m) {
                                                             carcinoGeneticist.push(m.content);
                                                         });
@@ -296,9 +296,9 @@ module.exports = {
                             })];
                     case 10:
                         _b.sent();
-                        return [3 /*break*/, 17];
+                        return [3 /*break*/, 18];
                     case 11:
-                        if (!(args[1] === 'publish' && repVerify)) return [3 /*break*/, 16];
+                        if (!(args[1] === 'publish' && repVerify)) return [3 /*break*/, 17];
                         return [4 /*yield*/, channelSchema_1["default"].countDocuments()
                             /*        let newChanid: string
                                     let iterChan = await channelSchema.find(
@@ -314,23 +314,28 @@ module.exports = {
                             })];
                     case 13:
                         xoxo = _b.sent();
-                        return [4 /*yield*/, xoxo.crosspost()["catch"](console.error)];
+                        return [4 /*yield*/, client.channels.cache.get('979898973466812477').send({
+                                embeds: [reportEmbed]
+                            })];
                     case 14:
-                        _b.sent();
-                        return [4 /*yield*/, channelID.send("Published report ".concat(reportNum, " to the [TSB] Nexus report channel!"))];
+                        oxox = _b.sent();
+                        return [4 /*yield*/, xoxo.crosspost()["catch"](console.error)];
                     case 15:
                         _b.sent();
-                        return [3 /*break*/, 17];
+                        return [4 /*yield*/, channelID.send("Published report ".concat(reportNum, " to the [TSB] Nexus report channel and Illusion Hall future-sight-reports channel!"))];
                     case 16:
+                        _b.sent();
+                        return [3 /*break*/, 18];
+                    case 17:
                         if (args[1] === 'publish' || args[1] == 'edit') {
                             channelID.send("Sorry, you're not permitted to run that command.");
                         }
-                        _b.label = 17;
-                    case 17: return [3 /*break*/, 19];
-                    case 18:
+                        _b.label = 18;
+                    case 18: return [3 /*break*/, 20];
+                    case 19:
                         channelID.send("Sorry, ".concat(reportNum, " is not a valid report ID."));
-                        _b.label = 19;
-                    case 19: return [2 /*return*/];
+                        _b.label = 20;
+                    case 20: return [2 /*return*/];
                 }
             });
         });

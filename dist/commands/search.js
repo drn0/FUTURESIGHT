@@ -71,7 +71,7 @@ module.exports = {
                             idArray.push(reportArray[x]._id);
                         }
                         return [4 /*yield*/, channelID.send({
-                                content: "User ID ".concat(uid, " was found in reports ").concat(idArray)
+                                content: "User ID ".concat(uid, " was found in report(s) numbers(s) ").concat(idArray)
                             })];
                     case 3:
                         _b.sent();
