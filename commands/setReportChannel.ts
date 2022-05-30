@@ -19,7 +19,7 @@ export default {
         let occurs = await channelSchema.find({guildID: guildID}).count()
         if (occurs < 1) {                  
             await new channelSchema({
-                    _id: (inDb),
+                    _id: (inDb.toString()),
                     chanID: (args[0]),
                     guildID: guildID
             }).save()

@@ -81,7 +81,7 @@ export default {
             if (reaction?.emoji.name === '🪡') {
                 const filtered = ((message: any) => { 
                     return message.author.id === sendsuid })
-                await channelID.send(`Please enter the accounts owned by this user in this format: platform: username , and give each their own message <@!${sendsuid}>. Note that you can only add up to five accounts; link any more in the evidence or notes section. If you don't have 5 accounts, wait 60 seconds after entering the final account.`)
+                await channelID.send(`Please enter the accounts owned by this user in this format: platform: username , and give each their own message <@!${sendsuid}>. Note that you can only add up to ten accounts; link any more in the evidence or notes section. The bot ends the interaction if there is inactivity for 20 seconds.`)
                     .then(async () => {
                         let carcinoGeneticist: any[] = []
                         const mesCol = channelID.createMessageCollector({ filter: filtered, max: 5, time: 60_000});
@@ -151,22 +151,18 @@ export default {
                 message.reply("hey, that's not a reaction i gave you");
             })            
         } else if (args[1] === 'publish' && repVerify) {
-            let callnewdb: number = await channelSchema.countDocuments()
-    /*        let newChanid: string
-            let iterChan = await channelSchema.find(
-                {
-                _id : { $gt : (0), $lt : (callnewdb - 1)}
-                }
-            ) as any[] */
-            let xoxo = await (client.channels.cache.get('869255669906309221') as TextChannel).send({
-                embeds: [reportEmbed]
-            })
-            let oxox = await (client.channels.cache.get('979898973466812477') as TextChannel).send({
-                embeds: [reportEmbed]
-            })
-            await xoxo.crosspost()
-                .catch(console.error)
-            await channelID.send(`Published report ${reportNum} to the [TSB] Nexus report channel and Illusion Hall future-sight-reports channel!`) 
+            let restula = await channelSchema.find({ _id: {$gt: -1}}) as any[]
+            let xoxo: any
+            for (let u = 0; u < restula.length; u++) {
+                xoxo = await (client.channels.cache.get(restula[u].chanID) as TextChannel).send({
+                    embeds: [reportEmbed]
+                })
+                if (xoxo.channel.type === "GUILD_NEWS") {
+                    xoxo.crosspost()
+                        .catch(console.error)
+                } 
+            }
+            await channelID.send(`Published report ${reportNum} to all subscribed channels.`) 
         } else if (args[1] === 'publish' || args[1] == 'edit') {
             channelID.send("Sorry, you're not permitted to run that command.")
         }
